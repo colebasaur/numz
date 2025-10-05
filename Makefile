@@ -76,6 +76,19 @@ tidy:
 	@echo "Tidying dependencies..."
 	$(GOMOD) tidy
 
+## completions: Generate shell completions for zsh
+completions: build
+	@echo "Generating zsh completions..."
+	@mkdir -p ~/.zsh/completions
+	@$(BUILD_DIR)/$(BINARY_NAME) completion zsh > ~/.zsh/completions/_numz
+	@echo "✓ Installed to ~/.zsh/completions/_numz"
+	@echo ""
+	@echo "To enable, add to ~/.zshrc:"
+	@echo "  fpath=(~/.zsh/completions \$$fpath)"
+	@echo "  autoload -Uz compinit && compinit"
+	@echo ""
+	@echo "Then restart your shell or run: exec zsh"
+
 ## help: Show this help message
 help:
 	@echo "Usage: make [target]"

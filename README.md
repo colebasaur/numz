@@ -32,5 +32,6 @@ make build
 # Add to PATH (optional, for current session)
 export PATH="$(pwd)/bin:$PATH"
 
-# Or install to GOPATH/bin
-make install
+# Add shell completions (optional)
+make completions
+```

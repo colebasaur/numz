@@ -4,20 +4,14 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"os"
-)
 
-var (
-	configFile string
-	verbose    bool
+	"github.com/colebasaur/numz/cmd/collection"
 )
 
 var rootCmd = &cobra.Command{
 	Use:   "numz",
-	Short: "A CLI tool to collect and manage numbers",
-	Long:  `number-collector is a command-line application that helps you collect and manage numbers efficiently.`,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Welcome to number-collector! Use --help to see available commands.")
-	},
+	Short: "A CLI tool to collect and manage numbers!",
+	Long:  `numz is a command-line application that allows you collect and manage numbers!`,
 }
 
 func Execute() {
@@ -28,6 +22,6 @@ func Execute() {
 }
 
 func init() {
-	rootCmd.PersistentFlags().StringVarP(&configFile, "config", "c", "", "Path to configuration file")
-	rootCmd.PersistentFlags().BoolVarP(&verbose, "verbose", "v", false, "Enable verbose output")
+	rootCmd.CompletionOptions.HiddenDefaultCmd = true
+	rootCmd.AddCommand(collection.CollectionCmd)
 }
