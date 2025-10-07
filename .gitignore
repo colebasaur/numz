@@ -30,3 +30,6 @@ go.work.sum
 
 # Build output
 bin/
+
+# Local db
+numz.db
