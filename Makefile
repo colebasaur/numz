@@ -13,6 +13,10 @@ GOFMT=$(GOCMD) fmt
 # Build directory
 BUILD_DIR=bin
 
+# Database
+DATA_DIR=data
+DB_FILE=$(DATA_DIR)/numz.db
+
 .PHONY: all build clean test coverage run help install dev fmt lint
 
 # Default target
@@ -88,6 +92,37 @@ completions: build
 	@echo "  autoload -Uz compinit && compinit"
 	@echo ""
 	@echo "Then restart your shell or run: exec zsh"
+
+
+## db-setup: Create database and load CSV data
+db-setup: db-clean db-init db-load
+	@echo "✓ Database setup complete"
+
+## db-init: Create database schema
+db-init:
+	@echo "Creating database schema..."
+	@sqlite3 $(DB_FILE) < $(DATA_DIR)/schema.sql
+
+## db-load: Load CSV data into database
+db-load:
+	@echo "Loading CSV data..."
+	@sqlite3 $(DB_FILE) ".mode csv" ".import $(DATA_DIR)/pack_numbers.csv pack_numbers"
+	@echo "✓ Data loaded"
+
+## db-clean: Remove existing database
+db-clean:
+	@echo "Cleaning up old database..."
+	@rm -f $(DB_FILE)
+
+## db-inspect: Open database in SQLite CLI
+db-inspect:
+	@sqlite3 $(DB_FILE)
+
+## db-stats: Show database statistics
+db-stats:
+	@echo "Database statistics:"
+	@sqlite3 $(DB_FILE) "SELECT 'Numbers: ' || COUNT(DISTINCT number_id) FROM pack_numbers;"
+	@sqlite3 $(DB_FILE) "SELECT 'Pack Numbers: ' || COUNT(*) FROM pack_numbers;"
 
 ## help: Show this help message
 help:

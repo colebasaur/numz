@@ -26,6 +26,9 @@ Because numbers are:
 git clone https://github.com/colebasaur/numz.git
 cd numz
 
+# Setup local database
+make db-setup
+
 # Build the binary
 make build
 
