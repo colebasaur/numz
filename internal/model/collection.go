@@ -17,7 +17,7 @@ func CollectionItemsGet() ([]CollectionItem, error) {
 		return nil, err
 	}
 
-	rows, err := db.Conn.Query("SELECT number_id, quantity FROM collection")
+	rows, err := db.Conn.Query("SELECT number_id, quantity FROM collection ORDER BY number_id")
 	if err != nil {
 		return nil, err
 	}
