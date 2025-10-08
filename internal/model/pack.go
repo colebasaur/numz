@@ -7,7 +7,7 @@ import (
 type Pack int
 
 // PackOpen opens a pack and returns the numbers inside.
-func PackOpen(pack Pack) ([]Number, error) {
+func PackOpen(pack Pack) ([]NumberResult, error) {
 	packNumbers, err := GetPackNumbers(pack)
 	if err != nil {
 		return nil, err
@@ -23,11 +23,14 @@ func PackOpen(pack Pack) ([]Number, error) {
 		return nil, err
 	}
 
-	var results []Number
+	var results []NumberResult
 	for range 5 {
 		number := picker.Pick()
-		number.AddToCollection()
-		results = append(results, number)
+		isNew, err := number.AddToCollection()
+		if err != nil {
+			return nil, err
+		}
+		results = append(results, NumberResult{Number: number, New: isNew})
 	}
 
 	return results, nil

@@ -6,7 +6,10 @@ import (
 )
 
 func main() {
-	storage.Init()
+	err := storage.Init()
+	if err != nil {
+		panic(err)
+	}
 	defer storage.Close()
 	cmd.Execute()
 }
