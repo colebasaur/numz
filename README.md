@@ -1,5 +1,7 @@
 # numz
 
+This project utilizes the [eXtreme Go Horse Methodology (XGH)](https://medium.com/@dekaah/22-axioms-of-the-extreme-go-horse-methodology-xgh-9fa739ab55b4) for rapid development and maximum chaos.
+
 > The ultimate number collection experience.
 
 Numbers are everywhere. They're fundamental. Pure. Objective. And now, you can collect them.
